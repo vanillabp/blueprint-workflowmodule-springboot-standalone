@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: standalone
+  datasource:
+    url: jdbc:h2:mem:standalonedb
+    username: test
+    password: test
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          format_sql: true
+      show-sql: false
+    h2:
+      console:
+        enabled: true
+
+
+camunda:
+  bpm:
+    filter:
+      create: "All tasks"
+    admin-user:
+      id: admin
+      password: admin
+      first-name: Admin
+      last-name: Istrator
+    generic-properties.properties:
+      initializeTelemetry: false
+      telemetry-reporter-activate: false
+    job-execution:
+      core-pool-size: 1
+      max-pool-size: 1
+      wait-time-in-millis: 100
+      max-wait: 100
+    database:
+      schema-update: true
+      jdbc-batch-processing: false
+    auto-deployment-enabled: false
+
+vanillabp:
+  workflow-modules:
+    standalone:
+      adapters:
+        camunda7:
+          resources-location: classpath*:/processes/camunda7
+        camunda8:
+          resources-location: classpath*:/processes/camunda8
+
+workerId: test
