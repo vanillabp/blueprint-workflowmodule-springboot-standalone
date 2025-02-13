@@ -34,7 +34,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StandaloneAggregate {
+public class Aggregate {
 
     /**
      * The primary key for the {@code STANDALONE} table.

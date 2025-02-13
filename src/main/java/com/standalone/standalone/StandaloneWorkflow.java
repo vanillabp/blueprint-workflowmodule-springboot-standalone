@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @WorkflowService(
-        workflowAggregateClass = StandaloneWorkflow.class,
+        workflowAggregateClass = Aggregate.class,
         bpmnProcess = @BpmnProcess(bpmnProcessId = "standalone"))
 @Transactional
 public class StandaloneWorkflow {
@@ -49,10 +49,10 @@ public class StandaloneWorkflow {
 
     /**
      * A reference to the {@link ProcessService} that will start and manage the
-     * workflow process for the {@link StandaloneAggregate}.
+     * workflow process for the {@link Aggregate}.
      */
     @Autowired
-    private ProcessService<StandaloneAggregate> standaloneService;
+    private ProcessService<Aggregate> standaloneService;
 
     /**
      * Initializes the StandaloneWorkflow. This method is called after the
@@ -66,7 +66,7 @@ public class StandaloneWorkflow {
 
     /**
      * Starts the workflow process for a given ID. This method creates a new
-     * {@link StandaloneAggregate} with the provided ID and a boolean flag
+     * {@link Aggregate} with the provided ID and a boolean flag
      * indicating whether a user task is desired. It then delegates to the
      * {@code standaloneService} to start the BPMN process.
      *
@@ -79,7 +79,7 @@ public class StandaloneWorkflow {
             final String id,
             final boolean wantUserTask) throws Exception {
 
-        var standaloneAggregate = new StandaloneAggregate();
+        var standaloneAggregate = new Aggregate();
 
         standaloneAggregate.setId(id);
         standaloneAggregate.setWantUserTask(wantUserTask);

@@ -12,8 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @version 1.0
  */
 @SpringBootApplication
-@ComponentScan(basePackageClasses = StandaloneApplication.class)
-public class StandaloneApplication {
+@ComponentScan(basePackageClasses = Application.class)
+public class Application {
 
     /**
      * The main method, used to run the Spring Boot application. This
@@ -23,6 +23,6 @@ public class StandaloneApplication {
      * @param args Command-line arguments passed to the application.
      */
     public static void main(String... args) {
-        new SpringApplication(StandaloneApplication.class).run(args);
+        new SpringApplication(Application.class).run(args);
     }
 }

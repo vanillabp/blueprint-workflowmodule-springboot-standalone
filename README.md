@@ -2,7 +2,7 @@
 
 # blueprint-workflowmodule-springboot-standalone
 
-A **blueprint** of a standalone Spring Boot application demonstrating how to integrate [VanillaBP SPI](https://www.vanillabp.io) for BPMN-based workflows. This example covers a very minimal set of scenarios for developing business process applications and serves as a starting point for more complex use cases.
+A **blueprint** of a standalone Spring Boot application demonstrating how to integrate [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows. This example covers a very minimal set of scenarios for developing business process applications and serves as a starting point for more complex use cases.
 
 ![demo.bpmn](readme/Standalone_BPMN_Process.png)
 

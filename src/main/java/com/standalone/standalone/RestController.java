@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * A simple REST controller that provides an endpoint to start a BPMN-based
@@ -26,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Torsoto
  * @version 1.0
  */
-@RestController
-public class StandaloneRestController {
+@org.springframework.web.bind.annotation.RestController
+public class RestController {
 
     /**
      * Service that orchestrates the BPMN process for standalone workflows.
@@ -36,10 +35,10 @@ public class StandaloneRestController {
     private StandaloneWorkflow service;
 
     /**
-     * Repository for retrieving and persisting {@link StandaloneAggregate} entities.
+     * Repository for retrieving and persisting {@link Aggregate} entities.
      */
     @Autowired
-    private StandaloneAggregateRepository aggregateRepo;
+    private AggregateRepository aggregateRepo;
 
     /**
      * Starts a new workflow instance based on the provided parameters.
