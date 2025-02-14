@@ -17,22 +17,29 @@ A **blueprint** of a standalone Spring Boot application demonstrating how to int
    mvn clean install
     ```
 3. **Start the Project**
-4. **Access the REST API** <br>
-   The application starts by default on [http://localhost:8080](http://localhost:8080)
+   ```bash
+   mvn spring-boot:run
+   ```
+
+The Base-URL for this project is [http://localhost:8080](http://localhost:8080). See [Usage](##Usage) for all Endpoints.
 
 ## Usage
 
 The demo exposes a REST-API:
 
-* *Start the workflow:* e.g. [http://localhost:8080](http://localhost:8080/)
+* *Welcome-Page:*  [http://localhost:8080/home](http://localhost:8080/home)
+* *Start a Workflow with id 1 and **NO** UserTask*: [http://localhost:8080/1/start](http://localhost:8080/1/start)
+* *Start a Workflow with id 1 and UserTask*: [http://localhost:8080/1/start?wantUsertask=true](http://localhost:8080/1/start?wantUsertask=true)
+* *Complete UserTask and end the Workflow*: [http://localhost:8080/1/{taskId}](http://localhost:8080/1/{taskId})
 
+*Hint:* To complete a UserTask you need to require the taskId from the Logger.
 ## Noteworthy & Contributors
 
-VanillaBP was developed by [Phactum](https://www.phactum.at) with the intention of giving back to the community as it has benefited the community in the past.
+VanillaBP was developed by [Phactum](https://www.phactum.at) with the intention of giving back to the community as it has benefited the community in the past.\
 ![Phactum](readme/phactum.png)
 
 ## License
 
-Copyright 2022 Phactum Softwareentwicklung GmbH
+Copyright 2025 Phactum Softwareentwicklung GmbH
 
 Licensed under the Apache License, Version 2.0

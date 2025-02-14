@@ -87,4 +87,16 @@ public class RestController {
 
         return ResponseEntity.ok("Completed Workflow: " + id);
     }
+
+    /**
+     * A simple welcome page.
+     *
+     * @return A ResponseEntity containing a welcome message.
+     */
+    @GetMapping("/home")
+    public ResponseEntity<String> home() {
+        final var text = "Welcome to the standalone workflow blueprint. To continue lookup the other REST-Endpoints.";
+
+        return ResponseEntity.ok(text);
+    }
 }
