@@ -3,6 +3,7 @@ package com.standalone.standalone;
 import io.vanillabp.spi.process.ProcessService;
 import io.vanillabp.spi.service.BpmnProcess;
 import io.vanillabp.spi.service.TaskId;
+import io.vanillabp.spi.service.WorkflowService;
 import io.vanillabp.spi.service.WorkflowTask;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -12,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * WorkflowService is a simple demonstration of how to integrate a BPMN
+ * WorkflowHandler is a simple demonstration of how to integrate a BPMN
  * process with the VanillaBP SPI. It manages the lifecycle of a standalone
  * workflow, starting the process and executing service and user tasks.
  *
  * <p>
  * An instance of this class is created as a Spring Service and is annotated
- * with {@code @WorkflowService}, linking it to a BPMN process with the ID
+ * with {@code @WorkflowHandler}, linking it to a BPMN process with the ID
  * <em>standalone</em>.
  * </p>
  *
@@ -36,16 +37,16 @@ import org.springframework.stereotype.Service;
  * @version 1.0
  */
 @Service
-@io.vanillabp.spi.service.WorkflowService(
+@WorkflowService(
         workflowAggregateClass = Aggregate.class,
-        bpmnProcess = @BpmnProcess(bpmnProcessId = "standalone"))
+        bpmnProcess = @BpmnProcess(bpmnProcessId = "demo"))
 @Transactional
-public class WorkflowService {
+public class WorkflowHandler {
 
     /**
      * Logger for this class, used to log workflow events and status messages.
      */
-    private static final Logger log = LoggerFactory.getLogger(WorkflowService.class);
+    private static final Logger log = LoggerFactory.getLogger(WorkflowHandler.class);
 
     /**
      * A reference to the {@link ProcessService} that will start and manage the
@@ -55,13 +56,13 @@ public class WorkflowService {
     private ProcessService<Aggregate> service;
 
     /**
-     * Initializes the WorkflowService. This method is called after the
+     * Initializes the WorkflowHandler. This method is called after the
      * bean is constructed and all dependencies are injected. It logs a simple
      * message indicating that the workflow service is ready.
      */
     @PostConstruct
     public void init() {
-        log.info("WorkflowService init...");
+        log.info("WorkflowHandler init...");
     }
 
     /**

@@ -39,6 +39,26 @@ camunda:
       schema-update: true
       jdbc-batch-processing: false
     auto-deployment-enabled: false
+  client:
+    mode: oidc
+    auth:
+        oidc-type: keycloak
+        issuer: http://localhost:18080/auth/realms/camunda-platform
+        client-id: zeebe
+        client-secret: zecret
+    zeebe:
+        enabled: true
+        gateway-url: http://localhost:26500
+        defaults:
+            enabled: false
+    operate:
+        enabled: false
+    tasklist:
+        enabled: false
+    optimize:
+        enabled: false
+    identity:
+        enabled: false
 
 vanillabp:
   workflow-modules:
