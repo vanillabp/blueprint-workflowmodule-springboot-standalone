@@ -2,7 +2,7 @@ spring:
   application:
     name: standalone
   datasource:
-    url: jdbc:h2:mem:standalonedb
+    url: jdbc:h2:mem:testdb
     username: test
     password: test
     jpa:

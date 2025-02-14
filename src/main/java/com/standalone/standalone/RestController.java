@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.NoSuchElementException;
+
 /**
  * A simple REST controller that provides an endpoint to start a BPMN-based
  * workflow process. It demonstrates how to accept parameters for creating
@@ -16,11 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * expose a REST API, and {@code @GetMapping} to handle GET requests.
  * </p>
  *
- * <p><strong>Note:</strong> If you are using a path variable (i.e., {@code @PathVariable}),
- * you may want to match it in your route mapping (e.g., {@code @GetMapping("/{id}")}).
- * Otherwise, if the route is just {@code /}, you might consider removing
- * the {@code @PathVariable} annotation.
- * </p>
  *
  * @author Torsoto
  * @version 1.0
@@ -53,7 +50,7 @@ public class RestController {
      * @throws Exception   If there is any error encountered while starting
      *                     the workflow process.
      */
-    @GetMapping("/")
+    @GetMapping("/{id}/start")
     public ResponseEntity<String> startWorkflow(
             @PathVariable final String id,
             @RequestParam(
@@ -62,10 +59,32 @@ public class RestController {
                     defaultValue = "false")
             final boolean wantUserTask) throws Exception {
 
-        // Start the workflow by delegating to the service
         service.startWorkflow(id, wantUserTask);
 
-        // Return a simple message indicating success
-        return ResponseEntity.ok("Hello World");
+        return ResponseEntity.ok("Workflow started with UserTask being " + wantUserTask);
+    }
+
+    /**
+     * Completes a specific user task within a workflow for the given aggregate ID.
+     * <p>
+     * This endpoint allows completing a task within a workflow by providing both
+     * the aggregate ID and the task ID. The method retrieves the corresponding
+     * aggregate and marks the specified task as completed.
+     *
+     * @param id     The unique identifier of the aggregate associated with the workflow.
+     * @param taskId The unique identifier of the user task to be completed.
+     * @return A ResponseEntity containing a success message upon task completion.
+     * @throws NoSuchElementException if no aggregate with the given ID is found.
+     */
+    @GetMapping("/{id}/{taskId}/complete")
+    public ResponseEntity<String> completeWorkflow(
+            @PathVariable final String id,
+            @PathVariable final String taskId) {
+
+        final var aggregate = aggregateRepo.findById(id).orElseThrow();
+
+        service.completeUserTask(aggregate, taskId);
+
+        return ResponseEntity.ok("Completed Workflow: " + id);
     }
 }

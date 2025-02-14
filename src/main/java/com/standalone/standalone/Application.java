@@ -2,7 +2,6 @@ package com.standalone.standalone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  * The main entry point of the Standalone application. This class
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @version 1.0
  */
 @SpringBootApplication
-@ComponentScan(basePackageClasses = Application.class)
 public class Application {
 
     /**

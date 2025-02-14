@@ -19,25 +19,19 @@ import lombok.*;
  * </ul>
  * </p>
  *
- * <p>
- * Lombok annotations are used to generate boilerplate code such as getters,
- * setters, constructors, and a builder.
- * </p>
- *
  * @author Torsoto
  * @version 1.0
  */
 @Entity
-@Table(name = "STANDALONE")
-@Getter
-@Setter
+@Table(name = "AGGREGATE")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Aggregate {
 
     /**
-     * The primary key for the {@code STANDALONE} table.
+     * The primary key for the {@code AGGREGATE} table.
      */
     @Id
     private String Id;

@@ -2,6 +2,7 @@ package com.standalone.standalone;
 
 import io.vanillabp.spi.process.ProcessService;
 import io.vanillabp.spi.service.BpmnProcess;
+import io.vanillabp.spi.service.TaskId;
 import io.vanillabp.spi.service.WorkflowService;
 import io.vanillabp.spi.service.WorkflowTask;
 import jakarta.annotation.PostConstruct;
@@ -28,7 +29,7 @@ import org.springframework.stereotype.Service;
  *   <li>Initialize the workflow on application startup via {@link #init()}.</li>
  *   <li>Call {@link #startWorkflow(String, boolean)} to start a new workflow instance.</li>
  *   <li>Workflow tasks are then automatically handled via {@link #doService()} and
- *   {@link #doUserTask()} as defined by the BPMN model.</li>
+ *   {@link #doUserTask(String taskId)} as defined by the BPMN model.</li>
  * </ul>
  * </p>
  *
@@ -52,7 +53,7 @@ public class StandaloneWorkflow {
      * workflow process for the {@link Aggregate}.
      */
     @Autowired
-    private ProcessService<Aggregate> standaloneService;
+    private ProcessService<Aggregate> service;
 
     /**
      * Initializes the StandaloneWorkflow. This method is called after the
@@ -79,14 +80,14 @@ public class StandaloneWorkflow {
             final String id,
             final boolean wantUserTask) throws Exception {
 
-        var standaloneAggregate = new Aggregate();
+        final var aggregate = new Aggregate();
 
-        standaloneAggregate.setId(id);
-        standaloneAggregate.setWantUserTask(wantUserTask);
+        aggregate.setId(id);
+        aggregate.setWantUserTask(wantUserTask);
 
-        standaloneService.startWorkflow(standaloneAggregate);
+        service.startWorkflow(aggregate);
 
-        log.info("Standalone Workflow '{}' started", standaloneAggregate.getId());
+        log.info("Workflow '{}' started", aggregate.getId());
     }
 
     /**
@@ -96,7 +97,9 @@ public class StandaloneWorkflow {
      */
     @WorkflowTask
     public void doService() {
-        log.info("StandaloneWorkflow doService");
+
+        log.info("Service-Task started");
+
         // TODO: Implement service-task-specific business logic
     }
 
@@ -105,10 +108,34 @@ public class StandaloneWorkflow {
      * when the corresponding user task is reached in the BPMN process.
      * In a real-world scenario, this might involve interacting with a
      * user interface or waiting for user input.
+     *
+     * @param taskId a unique identifier for each Task. The id is later used to complete the UserTask asynchronously
+     *
      */
     @WorkflowTask
-    public void doUserTask() {
-        log.info("StandaloneWorkflow doUserTask");
+    public void doUserTask(@TaskId final String taskId) {
+
+        log.info("UserTask {} started", taskId);
+
         // TODO: Implement user-task-specific business logic or user interaction
+    }
+
+    /**
+     * Completes a specific user task within the given aggregate's workflow.
+     * <p>
+     * This method is responsible for marking a user task as completed within
+     * a specified aggregate's workflow. It delegates the task completion
+     * to the service layer and logs the completion event.
+     *
+     * @param aggregate The aggregate instance that contains the workflow where the task is located.
+     * @param taskId    The unique identifier of the user task to be completed.
+     */
+    public void completeUserTask(
+            final Aggregate aggregate,
+            final String taskId) {
+
+        service.completeUserTask(aggregate, taskId);
+
+        log.info("UserTask {} completed", taskId);
     }
 }
