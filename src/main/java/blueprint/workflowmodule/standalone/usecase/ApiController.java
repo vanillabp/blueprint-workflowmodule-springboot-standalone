@@ -1,34 +1,33 @@
-package com.standalone.standalone;
+package blueprint.workflowmodule.standalone.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.NoSuchElementException;
 
 /**
- * A simple REST controller that provides an endpoint to start a BPMN-based
- * workflow process. It demonstrates how to accept parameters for creating
- * a new workflow instance and delegate to the {@link WorkflowHandler}.
+ * A simple REST controller that provides different endpoints.
+ * It demonstrates how to accept parameters for creating a new workflow instance and delegate to the {@link UseCaseService}.
  *
  * <p>
- * This controller uses Spring’s {@code @ApiController} annotation to
+ * This controller uses Spring’s {@code @RestController} annotation to
  * expose a REST API, and {@code @GetMapping} to handle GET requests.
  * </p>
  *
- * @author Torsoto
  * @version 1.0
  */
-@org.springframework.web.bind.annotation.RestController
+@RestController
 public class ApiController {
 
     /**
      * Service that orchestrates the BPMN process for standalone workflows.
      */
     @Autowired
-    private WorkflowHandler service;
+    private UseCaseService service;
 
     /**
      * Repository for retrieving and persisting {@link Aggregate} entities.
@@ -38,7 +37,7 @@ public class ApiController {
 
     /**
      * Starts a new workflow instance based on the provided parameters.
-     * It delegates the call to {@link WorkflowHandler#startWorkflow(String, boolean)}
+     * It delegates the call to {@link UseCaseService#initiateUseCase(String, boolean)}
      * to actually begin the BPMN process.
      *
      * @param id           A unique identifier for the workflow instance.
@@ -51,13 +50,13 @@ public class ApiController {
      */
     @GetMapping("/{id}/start")
     public ResponseEntity<String> startWorkflow(
-            @PathVariable final String id,
-            @RequestParam(
-                    value = "wantUserTask",
-                    required = false,
-                    defaultValue = "false") final boolean wantUserTask) throws Exception {
+        @PathVariable final String id,
+        @RequestParam(
+            value = "wantUserTask",
+            required = false,
+            defaultValue = "false") final boolean wantUserTask) throws Exception {
 
-        service.startWorkflow(id, wantUserTask);
+        service.initiateUseCase(id, wantUserTask);
 
         return ResponseEntity.ok("Workflow started with UserTask being " + wantUserTask);
     }
@@ -77,8 +76,8 @@ public class ApiController {
      */
     @GetMapping("/{id}/{taskId}/complete")
     public ResponseEntity<String> completeWorkflow(
-            @PathVariable final String id,
-            @PathVariable final String taskId) {
+        @PathVariable final String id,
+        @PathVariable final String taskId) {
 
         final var aggregate = aggregateRepo.findById(id).orElseThrow();
 
