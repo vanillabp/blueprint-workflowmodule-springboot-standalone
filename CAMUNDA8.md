@@ -1,7 +1,8 @@
 ![VanillaBP](readme/vanillabp-headline.png)
 
-# Camunda 8 Adapter standalone blueprint
+# Running standalone blueprint using Camunda 8
 
+These are a set of minimal instructions. Read more in the  [Camunda 8 Docs](https://docs.camunda.io/)
 
 ## Setup Instructions
 

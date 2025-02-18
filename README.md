@@ -25,8 +25,8 @@ A **blueprint** of a standalone Spring Boot application demonstrating how to use
 
 The base-URL for this project is [http://localhost:8080](http://localhost:8080). See section [Usage](#usage) for all endpoints.
 
-The default Maven profile is `camunda7`, which includes the [Camunda-7 Adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter) dependency.
-For **Camunda 8**, refer to the [Camunda-8 README](https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone/blob/wip/Camunda8_README.md) since additional setup is required.
+The default Maven profile is `camunda7`, which includes the [Camunda 7 adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter) dependency.
+For **Camunda 8**, refer to the [specific README](./CAMUNDA8.md) since additional setup is required.
 
 The components included in this blueprint are structured based on content-related criteria.
 This is intentional to promote modularity and maintainability.
@@ -50,7 +50,7 @@ The demo exposes a REST-API that provides a fully functional example:
 *Hints:*
 - To complete the UserTask you need to pickup the taskId from the application's log output.
 - To see current running processes under the operate endpoint: [http://localhost:8081](http://localhost:8081)
-(See [Camunda-8 README](https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone/blob/wip/Camunda8_README.md#setup-instructions) on how to make the operate endpoint work.)
+(See [Camunda 8 README](./CAMUNDA8.md#setup-instructions) on how to make the operate endpoint work.)
 
 ##
 
