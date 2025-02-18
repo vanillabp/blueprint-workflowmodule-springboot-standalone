@@ -2,46 +2,47 @@
 
 # Camunda 8 Adapter standalone blueprint
 
-## Prerequisites
-Ensure you have the following installed:
-- **Docker** (20.10.16+)
-- **Docker Compose** (1.27.0+)
 
 ## Setup Instructions
 
-1. **Download** the [Camunda 8 Docker Compose](https://docs.camunda.io/docs/self-managed/setup/deploy/local/docker-compose/).
+1. **Download** the [Camunda 8 Docker Compose ZIP](https://docs.camunda.io/docs/self-managed/setup/deploy/local/docker-compose/).
 2. **Extract** the files and navigate into the directory.
-3. **Start Camunda 8** using:
+3. **Start Camunda 8** by using:
    ```bash
    docker compose up -d
    ```
-4. wait a few minutes for the system to initialize.
-
-*Hint:* We recommend using Docker Desktop.
+4. Wait a few minutes for the system to initialize.
 
 ## Run Configuration
+1. Build the project:
+    ```shell
+    mvn clean package
+    ```
+2. To run the application using the `camunda8` Spring profile:
+   ```shell
+    java -jar /target/demo.jar --spring.profiles.active=camunda8
+    ```
 
-To run the Camunda 8 spring profile you have to either create a new run configuration in your IDE or use this command after rebuilding your project:
-```shell
-    java -jar .\target\demo.jar --spring.profiles.active=camunda8
-```
+## Tenant Configuration
 
-## Identity Configuration
+You **DON'T** have to configure a new tenant as they are deactivated by default.
+However, we recommend using tenants, especially in more complex projects, as they provide a structured way to separate processes across different business units, customers, or environments.
+Read more on tenants and multi-tenancy in the [Camunda docs](https://docs.camunda.org/manual/latest/user-guide/process-engine/multi-tenancy/) and the [VanillaBP Camunda 8 Adapter](https://github.com/camunda-community-hub/vanillabp-camunda8-adapter/blob/main/spring-boot/README.md#using-camunda-multi-tenancy).
 
-You DON'T have to configure a new tenant as they are deactivated by default.
-However, we recommend using tenants, especially in more complex projects, as they provide a structured way to separate data and processes across different business units, customers, or environments.
-Read more on Tenants and Multi-Tenancy in the [Camunda docs](https://docs.camunda.org/manual/latest/user-guide/process-engine/multi-tenancy/) and the [VanillaBP Camunda 8 Adapter](https://github.com/camunda-community-hub/vanillabp-camunda8-adapter/blob/main/spring-boot/README.md#using-camunda-multi-tenancy) on how to use Multi-Tenancy.
+### Run blueprint using tenants
 
-1. Open Identity: [http://localhost:8084](http://localhost:8084)
-2. Login:
+1. In the `application-camunda8.yaml` change `use-tenants: false` -> `true`
+2. Make sure the Camunda 8 docker compose is up.
+3. Open Identity: [http://localhost:8084](http://localhost:8084)
+4. Login:
     - **Username:** `demo`
     - **Password:** `demo`
-3. Create a new tenant:
+5. Create a new tenant:
     - Go to **Tenants** → **Create Tenant**
     - Set the Tenants **Name** and **ID** as `standalone` (Name of the Spring-boot application).
-4. Assign user to tenant:
+6. Assign user to tenant:
     - Go to **Assigned users** → **Assign users** → type/select the demo user
-5. Assign applications to tenant:
+7. Assign applications to tenant:
     - Go to the **Assigned applications** tab
     - Click **Assign application** and add:
         - `identity`
