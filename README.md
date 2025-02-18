@@ -49,7 +49,8 @@ The demo exposes a REST-API that provides a fully functional example:
 
 *Hints:*
 - To complete the UserTask you need to pickup the taskId from the application's log output.
-- To see current running processes: [http://localhost:8081](http://localhost:8081)
+- To see current running processes under the operate endpoint: [http://localhost:8081](http://localhost:8081)
+(See [Camunda-8 README](https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone/blob/wip/Camunda8_README.md#setup-instructions) on how to make the operate endpoint work.)
 
 ##
 
