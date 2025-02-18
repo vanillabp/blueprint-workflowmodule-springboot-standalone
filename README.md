@@ -40,15 +40,16 @@ This approach ensures that the business logic remains modular, reusable, and eas
 
 ## Usage
 
-
 The demo exposes a REST-API that provides a fully functional example:
 
 * *Welcome-Page:*  [http://localhost:8080/home](http://localhost:8080/home)
 * *Start a Workflow with id 1 and **NO** UserTask*: [http://localhost:8080/1/start](http://localhost:8080/1/start)
-* *Start a Workflow with id 1 and UserTask*: [http://localhost:8080/1/start?wantUsertask=true](http://localhost:8080/1/start?wantUsertask=true)
-* *Complete UserTask and end the Workflow*: [http://localhost:8080/1/{taskId}](http://localhost:8080/1/{taskId})
+* *Start a Workflow with id 1 and the UserTask*: [http://localhost:8080/1/start?wantUsertask=true](http://localhost:8080/1/start?wantUsertask=true)
+* *Complete UserTask and end the Workflow*: [http://localhost:8080/1/{taskId}/complete](http://localhost:8080/1/{taskId})
 
-*Hint:* To complete a UserTask you need to pickup the taskId from the application's log output.
+*Hints:*
+- To complete the UserTask you need to pickup the taskId from the application's log output.
+- To see current running processes: [http://localhost:8081](http://localhost:8081)
 
 ##
 

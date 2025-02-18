@@ -22,6 +22,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=wantUserTask</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="Event_17fdhdh" name="Workflow ended">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_0ixcgw7</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0ixcgw7" sourceRef="Activity_0qrmp1n" targetRef="Event_17fdhdh" />
@@ -33,6 +34,7 @@
       <bpmn:outgoing>Flow_0ixcgw7</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:endEvent id="Event_1lj56fs" name="Workflow ended">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_1y3nfgn</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1y3nfgn" name="no" sourceRef="Gateway_10bfok5" targetRef="Event_1lj56fs" />
@@ -61,15 +63,15 @@
           <dc:Bounds x="711" y="63" width="78" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0puaebf_di" bpmnElement="Activity_0qrmp1n">
+        <dc:Bounds x="560" y="60" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1lj56fs_di" bpmnElement="Event_1lj56fs">
         <dc:Bounds x="732" y="192" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="711" y="173" width="78" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0puaebf_di" bpmnElement="Activity_0qrmp1n">
-        <dc:Bounds x="560" y="60" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1r06jh3_di" bpmnElement="Flow_1r06jh3">
         <di:waypoint x="218" y="100" />

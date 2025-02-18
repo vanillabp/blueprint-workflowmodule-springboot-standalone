@@ -38,7 +38,8 @@ public class ApiController {
     /**
      * Starts a new workflow instance based on the provided parameters.
      * It delegates the call to {@link UseCaseService#initiateUseCase(String, boolean)}
-     * to actually begin the BPMN process.
+     * to actually begin the BPMN process. If the {@code wantUserTask} is false then the
+     * workflow automatically ends. (see Operate endpoint for process instances)
      *
      * @param id           A unique identifier for the workflow instance.
      * @param wantUserTask A boolean flag indicating whether the workflow
