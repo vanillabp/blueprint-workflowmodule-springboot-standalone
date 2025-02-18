@@ -20,7 +20,7 @@ These are a set of minimal instructions. Read more in the  [Camunda 8 Docs](http
     mvn clean package
     ```
 2. To run the application using the `camunda8` Spring profile:
-   ```shell
+    ```shell
     java -jar /target/demo.jar --spring.profiles.active=camunda8
     ```
 

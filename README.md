@@ -8,10 +8,17 @@ A **blueprint** of a standalone Spring Boot application demonstrating how to use
 
 ## Getting Started
 
-1. **Clone the Repository**
+
+1. **Create an empty project and run:**
    ```shell
-   git clone https://github.com/stephanpellian/blueprint-workflowmodule-springboot-standalone.git
+      mvn archetype:generate
+    -DarchetypeGroupId=io.vanillabp.blueprint
+    -DarchetypeArtifactId=workflowmodule-springboot-standalone-archetype
+    -DgroupId={your.groupId}
+    -DartifactId={your.artifactId}
+    -Dversion={your.version}
     ```
+   *Hint:* If you want a specific verison add -DarchetypeVersion={e.g 0.0.1}
 2. **Build the Project**
    ```shell
    mvn clean install

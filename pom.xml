@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Blueprint standalone workflow module</name>
     <description>Blueprint of a standalone Spring Boot VanillaBP workflow module</description>
+    <url>https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone</url>
     <properties>
         <java.version>17</java.version>
         <lombok.version>1.18.34</lombok.version>
