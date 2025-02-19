@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
  *
  * <p>
  * An instance of this class is created as a Spring Service and is annotated
- * with {@code @UseCaseService}, linking it to a BPMN process with the ID
- * <em>standalone</em>.
+ * with {@code @WorkflowService}, linking it to a BPMN process with the ID
+ * <em>demo</em>.
  * </p>
  *
  * @version 1.0
