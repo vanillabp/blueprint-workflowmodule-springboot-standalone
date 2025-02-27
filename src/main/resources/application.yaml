@@ -1,6 +1,6 @@
 spring:
     application:
-        name: standalone
+        name: loan-approval
     datasource:
         url: jdbc:h2:mem:testdb
         username: test
