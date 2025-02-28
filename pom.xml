@@ -47,7 +47,7 @@
 
     <packaging>jar</packaging>
     <build>
-        <finalName>demo</finalName>
+        <finalName>loan-approval</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

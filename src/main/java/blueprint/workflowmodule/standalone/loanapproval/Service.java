@@ -8,10 +8,9 @@ import io.vanillabp.spi.service.WorkflowTask;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
- * LoanApprovalService manages the lifecycle of a loan approval workflow.
+ * This service manages the lifecycle of a loan approval workflow.
  * It integrates with the BPMN process using the VanillaBP SPI,
  * handling both service and user tasks.
  *
@@ -24,12 +23,12 @@ import org.springframework.stereotype.Service;
  * @see <a href="https://github.com/vanillabp/spi-for-java/blob/main/README.md#wire-up-a-process">VanillaBP docs &quot;Wire up a process&quot;</a>
  */
 @Slf4j
-@Service
+@org.springframework.stereotype.Service
 @WorkflowService(
     workflowAggregateClass = Aggregate.class,
     bpmnProcess = @BpmnProcess(bpmnProcessId = "loan_approval"))
 @Transactional
-public class LoanApprovalService {
+public class Service {
 
     /**
      * Repository for retrieving and persisting {@link Aggregate} entities.
@@ -81,7 +80,7 @@ public class LoanApprovalService {
         final Aggregate loanApproval,
         @TaskId final String taskId) {
 
-        // store task id for later validation (see LoanApprovalService#completeRiskAssessment(...))
+        // store task id for later validation (see Service#completeRiskAssessment(...))
 
         loanApproval.setAssessRiskTaskId(taskId);
 

@@ -15,29 +15,30 @@ demo process:
 
 ## Getting Started
 
-1. **Create an empty project and run:**
+1. **Create an empty project directory and run:**
    ```shell
-    mvn archetype:generate
-    -DarchetypeGroupId=io.vanillabp.blueprint
-    -DarchetypeArtifactId=workflowmodule-springboot-standalone-archetype
-    -DgroupId={your.groupId}
-    -DartifactId={your.artifactId}
+    mvn archetype:generate \
+    -DarchetypeGroupId=io.vanillabp.blueprint \
+    -DarchetypeArtifactId=workflowmodule-springboot-standalone-archetype \
+    -DgroupId={your.groupId} \
+    -DartifactId={your.artifactId} \
     -Dversion={your.version}
     ```
    *Hint:* If you want a specific archetype version add `-DarchetypeVersion={e.g 0.0.1}`
    <br>&nbsp;
-1. **Build the Project**
+1. **Build the application:**
    ```shell
    mvn clean package -Pcamunda7
     ```
-1. **Start the Project**
+1. **Start the application:**
    ```shell
-   java -jar target/demo.jar --spring.profiles.active=camunda7
+   java -jar target/loan-approval.jar --spring.profiles.active=camunda7
    ```
+
 ## Using the demo
 
 This demo is very simple and does not include a user interface. To go through the
-entire demo follow these steps:
+entire loan approval follow these steps:
 
 1. Start processing of loan approval using this URL:<br>
    [http://localhost:8080/api/loan-approval/request-loan-approval?loanAmount=1000](http://localhost:8080/api/loan-approval/request-loan-approval?loanAmount=1000)<br>
@@ -54,6 +55,21 @@ entire demo follow these steps:
 - For understanding the given Spring Boot configuration files read VanillaBP docs
   for [VanillaBP Spring Boot support](https://github.com/vanillabp/spring-boot-support)
   and [VanillaBP Camunda 7 adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter/tree/main/spring-boot).
+
+## Building an application for your own use case
+
+If you want to use the project generated based on the archetype
+as a base for your use case, then
+
+1. choose a proper identifier for your business use case.
+1. rename the Java package `blueprint.workflowmodule.standalone.loanapproval` according to your
+   projects package and use case identifier (e.g. `com.mycompany.myusecase`).
+1. search case-insensitive in all files for all occurrences of
+   `loanapproval` or `loan-approval` and replace it by the identifier of your
+   use case.
+1. place your BPMN file in the directory
+   `src/main/resources/processes/camunda7` and change the annotation `@BpmnProcess`
+    found in Java class `service` pointing to your BPMN file's name.
 
 ## Interesting to know
 

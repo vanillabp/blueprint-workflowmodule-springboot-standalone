@@ -37,7 +37,7 @@ public class ApiController {
      * be triggered based on incoming REST calls.
      */
     @Autowired
-    private LoanApprovalService service;
+    private Service service;
 
     /**
      * Initiate processing of a new loan approval.

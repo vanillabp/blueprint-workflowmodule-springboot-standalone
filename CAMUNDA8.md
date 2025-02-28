@@ -22,7 +22,7 @@ This is a set of minimal instructions. Read more in the  [Camunda 8 Docs](https:
     ```
 2. Run the application using the `camunda8` Spring profile:
     ```shell
-    java -jar target/demo.jar --spring.profiles.active=camunda8
+    java -jar target/loan-approval.jar --spring.profiles.active=camunda8
     ```
 
 Now you can go through the instructions ["Using the demo"](./README.md#using-the-demo)
