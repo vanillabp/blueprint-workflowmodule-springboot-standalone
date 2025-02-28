@@ -55,7 +55,7 @@ entire demo follow these steps:
   for [VanillaBP Spring Boot support](https://github.com/vanillabp/spring-boot-support)
   and [VanillaBP Camunda 7 adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter/tree/main/spring-boot).
 
-## Interesting to known
+## Interesting to know
 
 The default Maven profile is `camunda7`, which includes the [Camunda 7 adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter) dependency.
 Additionally, a Spring profile `camunda7` needs to be used at runtime providing proper configuration.
@@ -64,7 +64,7 @@ Refer to the [specific README](./CAMUNDA8.md) since additional setup is required
 
 The components included in this blueprint are structured based on content-related criteria.
 This is intentional to promote modularity and maintainability.
-As an example, a fictional process based `usecase` is implemented. On developing your own
+As an example, a fictional process based `loan-approval` is implemented. On developing your own
 use-cases each independent use case needs it's own [aggregate](https://github.com/vanillabp/spi-for-java#process-specific-workflow-aggregate),
 repository, API controller and service placed in its own Java package.
 By keeping use cases separate, it becomes easier to extend the application, manage dependencies, and keep clear boundaries between different features.
