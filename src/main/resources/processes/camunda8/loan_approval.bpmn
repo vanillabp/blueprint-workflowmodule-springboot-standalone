@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1mtcech" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.31.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1mtcech" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.28.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
   <bpmn:process id="loan_approval" name="LoanApproval" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="loan requested">
       <bpmn:outgoing>Flow_1r06jh3</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_1r06jh3" sourceRef="StartEvent_1" targetRef="Activity_doService" />
-    <bpmn:exclusiveGateway id="Gateway_10bfok5" name="Risk acceptable?" default="Flow_1y3nfgn">
+    <bpmn:exclusiveGateway id="Gateway_10bfok5" name="Risk acceptable?" default="Flow_147bmcv">
       <bpmn:incoming>Flow_1b73n0w</bpmn:incoming>
       <bpmn:outgoing>Flow_147bmcv</bpmn:outgoing>
       <bpmn:outgoing>Flow_1y3nfgn</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1b73n0w" sourceRef="Activity_doService" targetRef="Gateway_10bfok5" />
-    <bpmn:sequenceFlow id="Flow_147bmcv" name="yes" sourceRef="Gateway_10bfok5" targetRef="Activity_0qrmp1n">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=riskAcceptable</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_147bmcv" name="yes" sourceRef="Gateway_10bfok5" targetRef="Activity_0qrmp1n" />
     <bpmn:endEvent id="Event_17fdhdh" name="Loan approved">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_0ixcgw7</bpmn:incoming>
@@ -23,7 +21,9 @@
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_1y3nfgn</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1y3nfgn" name="no" sourceRef="Gateway_10bfok5" targetRef="Event_1lj56fs" />
+    <bpmn:sequenceFlow id="Flow_1y3nfgn" name="no" sourceRef="Gateway_10bfok5" targetRef="Event_1lj56fs">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(riskAcceptable)</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:userTask id="Activity_doService" name="Assess Risk">
       <bpmn:extensionElements>
         <zeebe:formDefinition formKey="assessRisk" />
@@ -50,7 +50,7 @@
       <bpmndi:BPMNShape id="Gateway_10bfok5_di" bpmnElement="Gateway_10bfok5" isMarkerVisible="true">
         <dc:Bounds x="425" y="75" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="409" y="45" width="84" height="14" />
+          <dc:Bounds x="408" y="53" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_17fdhdh_di" bpmnElement="Event_17fdhdh">
@@ -84,7 +84,7 @@
         <di:waypoint x="475" y="100" />
         <di:waypoint x="560" y="100" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="509" y="82" width="17" height="14" />
+          <dc:Bounds x="491" y="82" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ixcgw7_di" bpmnElement="Flow_0ixcgw7">
@@ -96,7 +96,7 @@
         <di:waypoint x="450" y="210" />
         <di:waypoint x="732" y="210" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="459" y="165" width="13" height="14" />
+          <dc:Bounds x="459" y="153" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

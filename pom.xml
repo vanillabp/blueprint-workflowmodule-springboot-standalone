@@ -2,19 +2,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>io.vanillabp.blueprint</groupId>
     <artifactId>workflowmodule-springboot-standalone</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Blueprint standalone workflow module</name>
     <description>Blueprint of a standalone Spring Boot VanillaBP workflow module</description>
     <url>https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>VanillaBP</id>
+            <organization>Phactum Softwareentwicklung GmbH</organization>
+            <organizationUrl>https://www.phactum.at</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone.git</connection>
+        <developerConnection>scm:git:https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone.git</developerConnection>
+        <url>http://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone/tree/main</url>
+    </scm>
+
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
         <lombok.version>1.18.34</lombok.version>
     </properties>
@@ -56,11 +82,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- The only compile-time dependency regarding BPMS is the VanillaBP SPI. -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
+            <groupId>io.vanillabp</groupId>
+            <artifactId>spi-for-java</artifactId>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -73,17 +99,14 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
 
+    <!-- Choose the right Maven profile depending on the BPMS used
+         to provide the respective VanillaBP SPI adapter at runtime. -->
     <profiles>
         <profile>
             <id>camunda7</id>

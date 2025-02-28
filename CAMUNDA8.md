@@ -1,8 +1,8 @@
 ![VanillaBP](readme/vanillabp-headline.png)
 
-# Running standalone blueprint using Camunda 8
+# Running blueprint "Standalone" using Camunda 8
 
-These are a set of minimal instructions. Read more in the  [Camunda 8 Docs](https://docs.camunda.io/)
+This is a set of minimal instructions. Read more in the  [Camunda 8 Docs](https://docs.camunda.io/)
 
 ## Setup Instructions
 
@@ -15,14 +15,18 @@ These are a set of minimal instructions. Read more in the  [Camunda 8 Docs](http
 4. Wait a few minutes for the system to initialize.
 
 ## Run Configuration
-1. Build the project:
+
+1. Build the project using Maven profile `camunda8`:
     ```shell
-    mvn clean package
+    mvn clean package -Pcamunda8
     ```
-2. To run the application using the `camunda8` Spring profile:
+2. Run the application using the `camunda8` Spring profile:
     ```shell
-    java -jar /target/demo.jar --spring.profiles.active=camunda8
+    java -jar target/demo.jar --spring.profiles.active=camunda8
     ```
+
+Now you can go through the instructions ["Using the demo"](./README.md#using-the-demo)
+and watch the process in your local [Camunda 8 Operate](http://localhost:8081).
 
 ## Tenant Configuration
 
@@ -49,9 +53,6 @@ Read more on tenants and multi-tenancy in the [Camunda docs](https://docs.camund
         - `identity`
         - `operate`
         - `zeebe`
-
-
-Now your Camunda 8 profile is ready for use!
 
 ## Noteworthy & Contributors
 

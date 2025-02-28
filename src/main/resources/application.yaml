@@ -2,7 +2,7 @@ spring:
     application:
         name: loan-approval
     datasource:
-        url: jdbc:h2:mem:testdb
+        url: jdbc:h2:mem:blueprintdb
         username: test
         password: test
         jpa:
@@ -17,4 +17,4 @@ spring:
             console:
                 enabled: true
 
-workerId: test
+workerId: blueprint

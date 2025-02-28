@@ -1,13 +1,19 @@
 ![VanillaBP](readme/vanillabp-headline.png)
 
-# blueprint-workflowmodule-springboot-standalone
+# Blueprint "Standalone"
 
-A **blueprint** of a standalone Spring Boot application demonstrating how to use [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows. This example covers a very minimal set of scenarios for developing business process applications and serves as a starting point for more complex use cases.
+A **blueprint** of a standalone Spring Boot application demonstrating how to
+use [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows. This example covers a very
+minimal set of scenarios for developing business process applications and serves
+as a starting point for more complex use cases.
 
-![demo.bpmn](readme/Standalone_BPMN_Process.png)
+In order to develop a better understanding of the use of vanillabp,
+a concrete technical process “loan approval” is used instead of an abstract
+demo process:
+
+![loan_approval.bpmn](readme/loan-approval-process.png)
 
 ## Getting Started
-
 
 1. **Create an empty project and run:**
    ```shell
@@ -18,48 +24,56 @@ A **blueprint** of a standalone Spring Boot application demonstrating how to use
     -DartifactId={your.artifactId}
     -Dversion={your.version}
     ```
-   *Hint:* If you want a specific verison add `-DarchetypeVersion={e.g 0.0.1}`
-2. **Build the Project**
+   *Hint:* If you want a specific archetype version add `-DarchetypeVersion={e.g 0.0.1}`
+   <br>&nbsp;
+1. **Build the Project**
    ```shell
-   mvn clean install
+   mvn clean package -Pcamunda7
     ```
-3. **Start the Project**
+1. **Start the Project**
    ```shell
-   java -jar /target/demo.jar --spring.profiles.active=camunda7
+   java -jar target/demo.jar --spring.profiles.active=camunda7
    ```
-*Hint:* We recommend creating a Run-Configuration for each Camunda profile in your preferred IDE.
+## Using the demo
 
+This demo is very simple and does not include a user interface. To go through the
+entire demo follow these steps:
 
-The base-URL for this project is [http://localhost:8080](http://localhost:8080). See section [Usage](#usage) for all endpoints.
+1. Start processing of loan approval using this URL:<br>
+   [http://localhost:8080/api/loan-approval/request-loan-approval?loanAmount=1000](http://localhost:8080/api/loan-approval/request-loan-approval?loanAmount=1000)<br>
+   As a result you will get the loan approval's request ID needed in subsequent URLs.
+1. Checkout logs for retrieving the ID of the user task "Assess risk".
+1. Complete the user task by either accepting or denying the risk by this URL:<br>
+   [http://localhost:8080/api/loan-approval/{loanRequestId}/assess-risk/{taskId}?riskIsAcceptable=true](http://localhost:8080/api/loan-approval/{loanRequestId}/assess-risk/{taskId}?riskIsAcceptable=true)<br>
+   (replace placeholders by the values collected in previous steps)
+1. The service task "Transfer money" is executed depending on the value chosen for "riskIsAcceptable".
+
+*Hints:*
+- To see currently running processes use [your local Camunda 7 Cockpit](http://localhost:8080/camunda).
+- For running this demo using Camunda 8 checkout [Camunda 8 README](./CAMUNDA8.md#setup-instructions).
+- For understanding the given Spring Boot configuration files read VanillaBP docs
+  for [VanillaBP Spring Boot support](https://github.com/vanillabp/spring-boot-support)
+  and [VanillaBP Camunda 7 adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter/tree/main/spring-boot).
+
+## Interesting to known
 
 The default Maven profile is `camunda7`, which includes the [Camunda 7 adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter) dependency.
-For **Camunda 8**, refer to the [specific README](./CAMUNDA8.md) since additional setup is required.
+Additionally, a Spring profile `camunda7` needs to be used at runtime providing proper configuration.
+For **Camunda 8** the respective profile `camunda8` has to be used.
+Refer to the [specific README](./CAMUNDA8.md) since additional setup is required.
 
 The components included in this blueprint are structured based on content-related criteria.
 This is intentional to promote modularity and maintainability.
-
-As an example, a fictional `usecase` (e.g. Java package) is provided. Each independent use case should have its own aggregate, repository, API controller, and service.
+As an example, a fictional process based `usecase` is implemented. On developing your own
+use-cases each independent use case needs it's own [aggregate](https://github.com/vanillabp/spi-for-java#process-specific-workflow-aggregate),
+repository, API controller and service placed in its own Java package.
 By keeping use cases separate, it becomes easier to extend the application, manage dependencies, and keep clear boundaries between different features.
 
-When expanding this blueprint, we recommend following the same pattern:
-For each new use case, create a corresponding aggregate, repository, and service inside its own package.
-This approach ensures that the business logic remains modular, reusable, and easy to maintain as the project grows.
+This blueprint is about a single [workflow module](https://github.com/vanillabp/spring-boot-support#workflow-modules).
+If you are interested in implementing multiple workflow modules, you should take a look at other blueprints that cover
+these scenarios.
 
-## Usage
-
-The demo exposes a REST-API that provides a fully functional example:
-
-* *Welcome-Page:*  [http://localhost:8080/home](http://localhost:8080/home)
-* *Start a Workflow with id 1 and **NO** UserTask*: [http://localhost:8080/1/start](http://localhost:8080/1/start)
-* *Start a Workflow with id 1 and the UserTask*: [http://localhost:8080/1/start?wantUsertask=true](http://localhost:8080/1/start?wantUsertask=true)
-* *Complete UserTask and end the Workflow*: [http://localhost:8080/1/{taskId}/complete](http://localhost:8080/1/{taskId})
-
-*Hints:*
-- To complete the UserTask you need to pickup the taskId from the application's log output.
-- To see current running processes under the operate endpoint: [http://localhost:8081](http://localhost:8081)
-(See [Camunda 8 README](./CAMUNDA8.md#setup-instructions) on how to make the operate endpoint work.)
-
-##
+Other concepts VanillaBP is based on can be found in [VanillaBP SPI documentation](https://github.com/vanillabp/spi-for-java#concept).
 
 ## Noteworthy & Contributors
 
