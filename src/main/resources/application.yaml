@@ -1,0 +1,22 @@
+spring:
+    application:
+        name: loan-approval
+    datasource:
+        url: jdbc:h2:mem:blueprintdb
+        jpa:
+            database-platform: org.hibernate.dialect.H2Dialect
+            hibernate:
+                ddl-auto: update
+            properties:
+                hibernate:
+                    format_sql: true
+            show-sql: false
+    h2:
+        console:
+            # Find H2 console at http://localhost:8080/h2-console/
+            # JDBC URL: Copy from property spring.datasource.url
+            # Username: sa
+            # Password: keep blank
+            enabled: true
+
+workerId: blueprint
