@@ -12,7 +12,7 @@
 
     <groupId>io.vanillabp.blueprint</groupId>
     <artifactId>workflowmodule-springboot-standalone</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>Blueprint standalone workflow module</name>
     <description>Blueprint of a standalone Spring Boot VanillaBP workflow module</description>
     <url>https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone</url>
