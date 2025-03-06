@@ -45,7 +45,7 @@ public class Aggregate {
     private Integer amount;
 
     /**
-     * Indicates whether this loan request should be accepted or denied.
+     * Indicates whether the assessed risk is acceptable.
      */
     @Column
     private Boolean riskAcceptable;
