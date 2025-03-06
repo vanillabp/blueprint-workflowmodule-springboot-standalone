@@ -1,5 +1,7 @@
 package blueprint.workflowmodule.standalone.loanapproval;
 
+import blueprint.workflowmodule.standalone.loanapproval.model.Aggregate;
+import blueprint.workflowmodule.standalone.loanapproval.model.AggregateRepository;
 import io.vanillabp.spi.process.ProcessService;
 import io.vanillabp.spi.service.BpmnProcess;
 import io.vanillabp.spi.service.TaskId;

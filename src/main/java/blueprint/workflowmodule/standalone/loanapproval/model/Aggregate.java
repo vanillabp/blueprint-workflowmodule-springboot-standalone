@@ -1,4 +1,4 @@
-package blueprint.workflowmodule.standalone.loanapproval;
+package blueprint.workflowmodule.standalone.loanapproval.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

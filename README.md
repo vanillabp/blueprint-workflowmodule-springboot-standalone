@@ -3,7 +3,7 @@
 # Blueprint "Standalone"
 
 A **blueprint** of a standalone Spring Boot application demonstrating how to
-use [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows. This example covers a very
+use the [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows. This example covers a very
 minimal set of scenarios for developing business process applications and serves
 as a starting point for more complex use cases.
 
@@ -56,21 +56,6 @@ entire loan approval follow these steps:
   for [VanillaBP Spring Boot support](https://github.com/vanillabp/spring-boot-support)
   and [VanillaBP Camunda 7 adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter/tree/main/spring-boot).
 
-## Building an application for your own use case
-
-If you want to use the project generated based on the archetype
-as a base for your use case, then
-
-1. choose a proper identifier for your business use case.
-1. rename the Java package `blueprint.workflowmodule.standalone.loanapproval` according to your
-   projects package and use case identifier (e.g. `com.mycompany.myusecase`).
-1. search case-insensitive in all files for all occurrences of
-   `loanapproval` or `loan-approval` and replace it by the identifier of your
-   use case.
-1. place your BPMN file in the directory
-   `src/main/resources/processes/camunda7` and change the annotation `@BpmnProcess`
-    found in Java class `service` pointing to your BPMN file's name.
-
 ## Interesting to know
 
 The default Maven profile is `camunda7`, which includes the [Camunda 7 adapter](https://github.com/camunda-community-hub/vanillabp-camunda7-adapter) dependency.
@@ -90,6 +75,21 @@ If you are interested in implementing multiple workflow modules, you should take
 these scenarios.
 
 Other concepts VanillaBP is based on can be found in [VanillaBP SPI documentation](https://github.com/vanillabp/spi-for-java#concept).
+
+## Building an application for your own use case
+
+If you want to use the project generated based on the archetype
+as a base for your use case, then
+
+1. choose a proper identifier for your business use case.
+1. rename the Java package `blueprint.workflowmodule.standalone.loanapproval` according to your
+   projects package and use case identifier (e.g. `com.mycompany.myusecase`).
+1. search case-insensitive in all files for all occurrences of
+   `loanapproval` or `loan-approval` and replace it by the identifier of your
+   use case.
+1. place your BPMN file in the directory
+   `src/main/resources/processes/camunda7` and change the annotation `@BpmnProcess`
+    found in Java class `service` pointing to your BPMN file's name.
 
 ## Noteworthy & Contributors
 
