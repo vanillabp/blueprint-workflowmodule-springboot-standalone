@@ -17,8 +17,9 @@ import lombok.NoArgsConstructor;
  * <p>
  * The fields include:
  * <ul>
- *   <li>{@code loanRequestId} — A unique identifier for each loan request.</li>
- *   <li>{@code riskAcceptable} — An indicator that shows whether the risk of lending is acceptable.</li>
+ *   <li>{@code loanRequestId}          — A unique identifier for each loan request.</li>
+ *   <li>{@code riskAcceptable}         — An indicator that shows whether the risk of lending is acceptable.</li>
+ *   <li>{@code amount}                 — The amount that was requested to loan   </li>
  * </ul>
  * </p>
  *

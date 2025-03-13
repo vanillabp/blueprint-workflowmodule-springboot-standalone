@@ -58,14 +58,16 @@ public class Service {
 
         // build the aggregate
         // (https://github.com/vanillabp/spi-for-java/blob/main/README.md#process-specific-workflow-aggregate)
-
-        final var loanApproval = new Aggregate();
-        loanApproval.setLoanRequestId(loanRequestId);
-        loanApproval.setAmount(loanAmount);
+        final var loanApproval = Aggregate
+                .builder()
+                .loanRequestId(loanRequestId)
+                .amount(loanAmount)
+                .build();
 
         service.startWorkflow(loanApproval);
 
         log.info("Loan approval workflow '{}' started", loanApproval.getLoanRequestId());
+
     }
 
     /**
@@ -103,8 +105,10 @@ public class Service {
 
         log.info("Transferring money for loan request '{}'", loanApproval.getLoanRequestId());
 
-        // not part of this demo
+        // Not part of this demo
+
     }
+
 
     /**
      * Completes a risk assessment task based on the given decision.

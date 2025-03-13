@@ -85,11 +85,14 @@ public class ApiController {
         final var taskCompleted = service.completeRiskAssessment(
                 loanRequestId,
                 taskId,
-                riskIsAcceptable);
+                riskIsAcceptable
+        );
 
         if (!taskCompleted) {
             return ResponseEntity.notFound().build();
         }
+
+        log.info("Risk assessment completed");
 
         return ResponseEntity.ok().build();
 
