@@ -1,5 +1,7 @@
 package blueprint.workflowmodule.standalone.loanapproval;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import blueprint.workflowmodule.standalone.loanapproval.model.Aggregate;
 import blueprint.workflowmodule.standalone.loanapproval.model.AggregateRepository;
 import io.vanillabp.spi.process.ProcessService;
@@ -9,7 +11,6 @@ import io.vanillabp.spi.service.WorkflowService;
 import io.vanillabp.spi.service.WorkflowTask;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This service manages the lifecycle of a loan approval workflow.
@@ -27,8 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 @org.springframework.stereotype.Service
 @WorkflowService(
-    workflowAggregateClass = Aggregate.class,
-    bpmnProcess = @BpmnProcess(bpmnProcessId = "loan_approval"))
+        workflowAggregateClass = Aggregate.class,
+        bpmnProcess = @BpmnProcess(bpmnProcessId = "loan_approval"))
 @Transactional
 public class Service {
 
@@ -84,7 +85,8 @@ public class Service {
 
         loanApproval.setAssessRiskTaskId(taskId);
 
-        log.info("Assessing risk for loan approval '{}' (user task ID = '{}')", loanApproval.getLoanRequestId(), taskId);
+        log.info("Assessing risk for loan approval '{}' (user task ID = '{}')", loanApproval.getLoanRequestId(),
+                taskId);
 
     }
 
@@ -128,7 +130,8 @@ public class Service {
             return false;
         }
 
-        log.info("Got risk assessment '{}' for loan approval '{}'", riskIsAcceptable ? "accepted" : "denied", loanRequestId);
+        log.info("Got risk assessment '{}' for loan approval '{}'", riskIsAcceptable ? "accepted" : "denied",
+                loanRequestId);
 
         // save confirmed data in aggregate
 

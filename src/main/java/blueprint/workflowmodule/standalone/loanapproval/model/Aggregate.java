@@ -56,4 +56,12 @@ public class Aggregate {
     @Column
     private String assessRiskTaskId;
 
+    public Boolean isLoanRequestAccepted() {
+
+        if (riskAcceptable == null) {
+            return null;
+        }
+        return true;
+
+    }
 }
