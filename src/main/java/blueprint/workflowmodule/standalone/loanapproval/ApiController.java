@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import blueprint.workflowmodule.standalone.loanapproval.config.LoanApprovalProperties;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -41,6 +42,9 @@ public class ApiController {
     @Autowired
     private Service service;
 
+    @Autowired
+    private LoanApprovalProperties properties;
+
     /**
      * Initiate processing of a new loan approval.
      *
@@ -52,9 +56,7 @@ public class ApiController {
     public ResponseEntity<String> requestLoanApproval(
             @RequestParam final int loanAmount) throws Exception {
 
-        final var maxAmount = 10000;
-
-        if (loanAmount > maxAmount) {
+        if (loanAmount > properties.getMaxAmount()) {
             return ResponseEntity.badRequest().build();
         }
 
