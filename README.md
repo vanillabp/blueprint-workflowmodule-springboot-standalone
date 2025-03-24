@@ -3,13 +3,13 @@
 # Blueprint "Standalone"
 
 A **blueprint** of a standalone Spring Boot application demonstrating how to
-use the [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows. This example covers a very
-minimal set of scenarios for developing business process applications and serves
-as a starting point for more complex use cases.
+use the [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows.
 
-In order to develop a better understanding of the use of vanillabp,
+In order to develop a better understanding of the use of VanillaBP,
 a concrete technical process “loan approval” is used instead of an abstract
-demo process:
+demo process. This
+example covers a very minimal set of scenarios for developing business process applications and serves as a starting
+point for more complex use cases:
 
 ![loan_approval.bpmn](readme/loan-approval-process.png)
 
@@ -78,7 +78,7 @@ Other concepts VanillaBP is based on can be found in [VanillaBP SPI documentatio
 
 ## Building an application for your own use case
 
-If you want to use the project generated based on the archetype
+If you want to use the project generated based on this archetype
 as a base for your use case, then
 
 1. choose a proper identifier for your business use case.
