@@ -1,7 +1,7 @@
 package blueprint.workflowmodule.standalone.loanapproval;
 
 import java.util.UUID;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import blueprint.workflowmodule.standalone.loanapproval.config.LoanApprovalProperties;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -39,6 +42,9 @@ public class ApiController {
     @Autowired
     private Service service;
 
+    @Autowired
+    private LoanApprovalProperties properties;
+
     /**
      * Initiate processing of a new loan approval.
      *
@@ -48,13 +54,17 @@ public class ApiController {
      */
     @GetMapping("/request-loan-approval")
     public ResponseEntity<String> requestLoanApproval(
-            @RequestParam final int loanAmount) throws Exception{
+            @RequestParam final int loanAmount) throws Exception {
+
+        if (loanAmount > properties.getMaxAmount()) {
+            return ResponseEntity.badRequest().build();
+        }
 
         final var loanRequestId = UUID.randomUUID().toString();
 
         service.initiateLoanApproval(
-            loanRequestId,
-            loanAmount);
+                loanRequestId,
+                loanAmount);
 
         return ResponseEntity.ok(loanRequestId);
 
@@ -70,18 +80,21 @@ public class ApiController {
      */
     @GetMapping("/{loanRequestId}/assess-risk/{taskId}")
     public ResponseEntity<String> assessRisk(
-        @PathVariable final String loanRequestId,
-        @PathVariable final String taskId,
-        @RequestParam final boolean riskIsAcceptable) {
+            @PathVariable final String loanRequestId,
+            @PathVariable final String taskId,
+            @RequestParam final boolean riskIsAcceptable) {
 
         final var taskCompleted = service.completeRiskAssessment(
-            loanRequestId,
-            taskId,
-            riskIsAcceptable);
+                loanRequestId,
+                taskId,
+                riskIsAcceptable
+        );
 
         if (!taskCompleted) {
             return ResponseEntity.notFound().build();
         }
+
+        log.info("Risk assessment completed");
 
         return ResponseEntity.ok().build();
 

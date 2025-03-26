@@ -2,13 +2,14 @@
 
 # Running blueprint "Standalone" using Camunda 8
 
-This is a set of minimal instructions. Read more in the  [Camunda 8 Docs](https://docs.camunda.io/)
+This is a set of minimal instructions. Read more in the [Camunda 8 Docs](https://docs.camunda.io/).
 
 ## Setup Instructions
 
 1. **Download** the [Camunda 8 Docker Compose ZIP](https://docs.camunda.io/docs/self-managed/setup/deploy/local/docker-compose/).
 2. **Extract** the files and navigate into the directory.
 3. **Start Camunda 8** by using:
+
    ```bash
    docker compose up -d
    ```
@@ -17,13 +18,15 @@ This is a set of minimal instructions. Read more in the  [Camunda 8 Docs](https:
 ## Run Configuration
 
 1. Build the project using Maven profile `camunda8`:
-    ```shell
-    mvn clean package -Pcamunda8
-    ```
+
+   ```shell
+   mvn clean package -Pcamunda8
+   ```
 2. Run the application using the `camunda8` Spring profile:
-    ```shell
-    java -jar target/loan-approval.jar --spring.profiles.active=camunda8
-    ```
+
+   ```shell
+   java -jar target/loan-approval.jar --spring.profiles.active=camunda8
+   ```
 
 Now you can go through the instructions ["Using the demo"](./README.md#using-the-demo)
 and watch the process in your local [Camunda 8 Operate](http://localhost:8081).
@@ -40,19 +43,19 @@ Read more on tenants and multi-tenancy in the [Camunda docs](https://docs.camund
 2. Make sure the Camunda 8 docker compose is up.
 3. Open Identity: [http://localhost:8084](http://localhost:8084)
 4. Login:
-    - **Username:** `demo`
-    - **Password:** `demo`
+   - **Username:** `demo`
+   - **Password:** `demo`
 5. Create a new tenant:
-    - Go to **Tenants** → **Create Tenant**
-    - Set the Tenants **Name** and **ID** as `standalone` (Name of the Spring-boot application).
+   - Go to **Tenants** → **Create Tenant**
+   - Set the Tenants **Name** and **ID** as `standalone` (Name of the Spring-boot application).
 6. Assign user to tenant:
-    - Go to **Assigned users** → **Assign users** → type/select the demo user
+   - Go to **Assigned users** → **Assign users** → type/select the demo user
 7. Assign applications to tenant:
-    - Go to the **Assigned applications** tab
-    - Click **Assign application** and add:
-        - `identity`
-        - `operate`
-        - `zeebe`
+   - Go to the **Assigned applications** tab
+   - Click **Assign application** and add:
+     - `identity`
+     - `operate`
+     - `zeebe`
 
 ## Noteworthy & Contributors
 
