@@ -2,7 +2,7 @@
 
 # Running blueprint "Standalone" using Camunda 8
 
-This is a set of minimal instructions. Read more in the  [Camunda 8 Docs](https://docs.camunda.io/)
+This is a set of minimal instructions. Read more in the [Camunda 8 Docs](https://docs.camunda.io/).
 
 ## Setup Instructions
 
