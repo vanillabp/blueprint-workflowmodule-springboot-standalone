@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 public class Aggregate {
 
     /**
-     * The primary key for the {@code LOANAPPROVAL} table.
+     * The business identifier of this use case.
      */
     @Id
     private String loanRequestId;
@@ -46,7 +46,7 @@ public class Aggregate {
     private Integer amount;
 
     /**
-     * Indicates whether the assessed risk is acceptable.
+     * Indicates whether the risk was assessed as acceptable.
      */
     @Column
     private Boolean riskAcceptable;
@@ -57,6 +57,16 @@ public class Aggregate {
     @Column
     private String assessRiskTaskId;
 
+    /**
+     * Used in BPMN expression to not access data of aggregate directly.
+     * By using this pattern changes of properties of the aggregate
+     * doe not affect workflows already started before the change.
+     * Additionally, in BPMN the intention of this expression has to
+     * be named explicitly e.g. '${loanRequestAccepted}' what is a
+     * better documentation of the purpose.
+     *
+     * @return Whether the loan request was accepted
+     */
     public Boolean isLoanRequestAccepted() {
 
         if (riskAcceptable == null) {
