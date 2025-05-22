@@ -5,6 +5,9 @@
 A **blueprint** of a standalone Spring Boot application demonstrating how to
 use the [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows.
 
+Available variants:
+1. [Using MongoDB instead of JPA](https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone/tree/variant/mongodb)
+
 In order to develop a better understanding of how to use VanillaBP,
 a concrete technical process “loan approval” is used instead of an abstract
 demo process. This
