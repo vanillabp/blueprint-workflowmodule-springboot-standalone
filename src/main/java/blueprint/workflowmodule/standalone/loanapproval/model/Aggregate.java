@@ -1,9 +1,7 @@
 package blueprint.workflowmodule.standalone.loanapproval.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,8 +23,7 @@ import lombok.NoArgsConstructor;
  *
  * @version 1.0
  */
-@Entity
-@Table(name = "LOANAPPROVAL")
+@Document(collection = "LOANAPPROVAL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,25 +33,22 @@ public class Aggregate {
     /**
      * The business identifier of this use case.
      */
-    @Id
+    @org.springframework.data.annotation.Id
     private String loanRequestId;
 
     /**
      * The loan size.
      */
-    @Column
     private Integer amount;
 
     /**
      * Indicates whether the risk was assessed as acceptable.
      */
-    @Column
     private Boolean riskAcceptable;
 
     /**
      * The task id for risk assessment.
      */
-    @Column
     private String assessRiskTaskId;
 
     /**
