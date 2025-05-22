@@ -32,6 +32,7 @@ point for more complex use cases:
 2. **Build the application:**
 
    ```shell
+   mvn spotless:apply
    mvn clean package -Pcamunda7
    ```
 3. **Start the application:**
