@@ -1,12 +1,15 @@
 ![VanillaBP](readme/vanillabp-headline.png)
 
-# Blueprint "Standalone"
+# Blueprint "Standalone" - using MongoDB
 
 A **blueprint** of a standalone Spring Boot application demonstrating how to
 use the [VanillaBP SPI](https://github.com/vanillabp/spi-for-java) for BPMN-based workflows.
 
-Available variants:
-1. [Using MongoDB instead of JPA](https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone/tree/variant/mongodb)
+This blueprint is a variant of the
+["Standalone leveraging Business Cockpit" blueprint](https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone)
+showing MongoDB instead of JPA. Checkout
+[Github-comparison](https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone/compare/main...variant/mongodb)
+for differences.
 
 In order to develop a better understanding of how to use VanillaBP,
 a concrete technical process “loan approval” is used instead of an abstract
@@ -24,21 +27,25 @@ point for more complex use cases:
    mvn archetype:generate \
    -DarchetypeGroupId=io.vanillabp.blueprint \
    -DarchetypeArtifactId=workflowmodule-springboot-standalone-archetype \
+   -DarchetypeVersion=1.0.1-mongodb \
    -DgroupId={your.groupId} \
    -DartifactId={your.artifactId} \
    -Dversion={your.version}
    ```
-
-   *Hint:* If you want a specific archetype version add `-DarchetypeVersion={e.g 0.0.1}`
-   <br>&nbsp;
-
 2. **Build the application:**
 
    ```shell
    mvn spotless:apply
    mvn clean package -Pcamunda7
    ```
-3. **Start the application:**
+3. **Run local MongoDb:**
+
+   ```shell
+   cd development
+   docker compose up -d
+   cd ..
+   ```
+4. **Start the application:**
 
    ```shell
    java -jar target/loan-approval.jar --spring.profiles.active=camunda7
