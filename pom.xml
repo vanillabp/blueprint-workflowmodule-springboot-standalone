@@ -74,6 +74,30 @@
       <scope>runtime</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>vanillabp-spring-boot-support</id>
+      <url>https://maven.pkg.github.com/vanillabp/spring-boot-support</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>camunda-community-hub-vanillabp-camunda7-adapter</id>
+      <url>https://maven.pkg.github.com/camunda-community-hub/vanillabp-camunda7-adapter</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>camunda-community-hub-vanillabp-camunda8-adapter</id>
+      <url>https://maven.pkg.github.com/camunda-community-hub/vanillabp-camunda8-adapter</url>
+    </repository>
+  </repositories>
   <build>
     <finalName>loan-approval</finalName>
     <plugins>
@@ -186,7 +210,7 @@
         <dependency>
           <groupId>org.camunda.community.vanillabp</groupId>
           <artifactId>camunda7-spring-boot-adapter</artifactId>
-          <version>1.2.2</version>
+          <version>1.3.1</version>
         </dependency>
       </dependencies>
     </profile>
@@ -196,7 +220,7 @@
         <dependency>
           <groupId>org.camunda.community.vanillabp</groupId>
           <artifactId>camunda8-spring-boot-adapter</artifactId>
-          <version>1.5.0</version>
+          <version>1.6.2</version>
         </dependency>
       </dependencies>
     </profile>
