@@ -82,7 +82,7 @@ public class ApiController {
     public ResponseEntity<String> assessRisk(
             @PathVariable final String loanRequestId,
             @PathVariable final String taskId,
-            @RequestParam final boolean riskIsAcceptable) {
+            @RequestParam(required = false) final Boolean riskIsAcceptable) {
 
         final var taskCompleted = service.completeRiskAssessment(
                 loanRequestId,

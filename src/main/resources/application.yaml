@@ -3,14 +3,14 @@ spring:
     name: loan-approval
   datasource:
     url: jdbc:h2:mem:blueprintdb
-    jpa:
-      database-platform: org.hibernate.dialect.H2Dialect
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
       hibernate:
-        ddl-auto: update
-      properties:
-        hibernate:
-          format_sql: true
-      show-sql: false
+        format_sql: true
+    show-sql: false
   h2:
     console:
       enabled: true

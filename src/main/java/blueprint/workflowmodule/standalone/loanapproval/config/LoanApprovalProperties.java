@@ -13,6 +13,9 @@ import lombok.Setter;
 @Setter
 public class LoanApprovalProperties {
 
+    /**
+     * The maximum loan amount.
+     */
     private int maxAmount;
 
 }

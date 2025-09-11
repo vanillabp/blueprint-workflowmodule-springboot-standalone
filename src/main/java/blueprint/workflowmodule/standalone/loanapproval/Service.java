@@ -7,6 +7,7 @@ import blueprint.workflowmodule.standalone.loanapproval.model.Aggregate;
 import blueprint.workflowmodule.standalone.loanapproval.model.AggregateRepository;
 import io.vanillabp.spi.process.ProcessService;
 import io.vanillabp.spi.service.BpmnProcess;
+import io.vanillabp.spi.service.TaskEvent;
 import io.vanillabp.spi.service.TaskId;
 import io.vanillabp.spi.service.WorkflowService;
 import io.vanillabp.spi.service.WorkflowTask;
@@ -79,16 +80,33 @@ public class Service {
      * @see <a href="https://github.com/vanillabp/spi-for-java/blob/main/README.md#user-tasks-and-asynchronous-tasks>VanillaBP docs &quot;User tasks and asynchronous tasks&quot;</a>
      */
     @WorkflowTask
+    @SuppressWarnings("unused")
     public void assessRisk(
             final Aggregate loanApproval,
-            @TaskId final String taskId) {
+            @TaskId final String taskId,
+            @TaskEvent final TaskEvent.Event taskEvent) {
 
-        // store task id for later validation (see Service#completeRiskAssessment(...))
+        // task is created
+        if (taskEvent == TaskEvent.Event.CREATED) {
 
-        loanApproval.setAssessRiskTaskId(taskId);
+            // store task id for later validation (see Service#completeRiskAssessment(...))
+            loanApproval.setAssessRiskTaskId(taskId);
 
-        log.info("Assessing risk for loan approval '{}' (user task ID = '{}')", loanApproval.getLoanRequestId(),
-                taskId);
+            log.info("Assessing risk for loan approval '{}' (user task ID = '{}'):", loanApproval.getLoanRequestId(),
+                    taskId);
+
+            log.info("Accept -> http://localhost:8080/api/loan-approval/{}/assess-risk/{}?riskIsAcceptable=true",
+                    loanApproval.getLoanRequestId(), taskId);
+            log.info("Deny   -> http://localhost:8080/api/loan-approval/{}/assess-risk/{}?riskIsAcceptable=false",
+                    loanApproval.getLoanRequestId(), taskId);
+
+        }
+        // task is canceled e.g. due to an interrupting boundary event
+        else if (taskEvent == TaskEvent.Event.CANCELED) {
+
+            loanApproval.setAssessRiskTaskId(null);
+
+        }
 
     }
 
@@ -100,6 +118,7 @@ public class Service {
      * @see <a href="https://github.com/vanillabp/spi-for-java/blob/main/README.md#wire-up-a-task">VanillaBP docs &quot;Wire up a task&quot;</a>
      */
     @WorkflowTask
+    @SuppressWarnings("unused")
     public void transferMoney(
             final Aggregate loanApproval) {
 
@@ -108,7 +127,6 @@ public class Service {
         // Not part of this demo
 
     }
-
 
     /**
      * Completes a risk assessment task based on the given decision.
@@ -120,7 +138,7 @@ public class Service {
     public boolean completeRiskAssessment(
             final String loanRequestId,
             final String taskId,
-            final boolean riskIsAcceptable) {
+            final Boolean riskIsAcceptable) {
 
         final var loanApprovalFound = loanApprovals.findById(loanRequestId);
 
@@ -134,16 +152,26 @@ public class Service {
             return false;
         }
 
-        log.info("Got risk assessment '{}' for loan approval '{}'", riskIsAcceptable ? "accepted" : "denied",
-                loanRequestId);
-
-        // save confirmed data in aggregate
-
-        loanApproval.setRiskAcceptable(riskIsAcceptable);
-
         // complete user task
 
-        service.completeUserTask(loanApproval, taskId);
+        if (riskIsAcceptable != null) {
+
+            log.info("Got risk assessment '{}' for loan approval '{}'", riskIsAcceptable ? "accepted" : "denied",
+                    loanRequestId);
+
+            // save confirmed data in aggregate
+
+            loanApproval.setRiskAcceptable(riskIsAcceptable);
+
+            service.completeUserTask(loanApproval, taskId);
+
+        } else {
+
+            log.info("Got risk assessment 'NULL' for loan approval '{}'", loanRequestId);
+
+            service.cancelUserTask(loanApproval, taskId, "Failed");
+
+        }
 
         return true;
 

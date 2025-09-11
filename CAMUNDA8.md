@@ -60,7 +60,7 @@ and the [VanillaBP Camunda 8 Adapter](https://github.com/camunda-community-hub/v
    - Go to **Tenants** → **Create tenant**
    - Set the tenants ID and its name
    - In the newly created tenant assign the user "demo"
-   - Also add the client "loan-approval" to the tenant 
+   - Also add the client "loan-approval" to the tenant
 
 ## Noteworthy & Contributors
 

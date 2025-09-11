@@ -24,14 +24,11 @@ point for more complex use cases:
    mvn archetype:generate \
    -DarchetypeGroupId=io.vanillabp.blueprint \
    -DarchetypeArtifactId=workflowmodule-springboot-standalone-archetype \
+   -DarchetypeVersion=1.0.1 \
    -DgroupId={your.groupId} \
    -DartifactId={your.artifactId} \
    -Dversion={your.version}
    ```
-
-   *Hint:* If you want a specific archetype version add `-DarchetypeVersion={e.g 0.0.1}`
-   <br>&nbsp;
-
 2. **Build the application:**
 
    ```shell
