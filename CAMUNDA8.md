@@ -6,8 +6,8 @@ This is a set of minimal instructions. Read more in the [Camunda 8 Docs](https:/
 
 ## Setup Instructions
 
-1. **Download** the [Camunda 8 Docker Compose ZIP](https://docs.camunda.io/docs/self-managed/setup/deploy/local/docker-compose/).
-2. **Extract** the files and navigate into the directory.
+1. **Download** the Camunda 8 Docker Compose ZIP ([Learn more...](https://docs.camunda.io/docs/self-managed/quickstart/developer-quickstart/docker-compose/)).
+2. **Extract** the files and navigate into the right directory.
 3. **Start Camunda 8** by using:
 
    ```bash
@@ -33,9 +33,12 @@ and watch the process in your local [Camunda 8 Operate](http://localhost:8081).
 
 ## Tenant Configuration
 
-You **DON'T** have to configure a new tenant as they are deactivated by default.
-However, we recommend using tenants, especially in more complex projects, as they provide a structured way to separate processes across different business units, customers, or environments.
-Read more on tenants and multi-tenancy in the [Camunda docs](https://docs.camunda.org/manual/latest/user-guide/process-engine/multi-tenancy/) and the [VanillaBP Camunda 8 Adapter](https://github.com/camunda-community-hub/vanillabp-camunda8-adapter/blob/main/spring-boot/README.md#using-camunda-multi-tenancy).
+To use this demo you **DON'T** have to configure a new tenant as they are deactivated by default.
+However, we recommend using tenants, especially in more complex projects, as they provide a structured way
+to separate processes across different business units, customers, or environments.
+
+Read more on tenants and multi-tenancy in the [Camunda docs](https://docs.camunda.io/docs/components/identity/tenant/#about-tenants)
+and the [VanillaBP Camunda 8 Adapter](https://github.com/camunda-community-hub/vanillabp-camunda8-adapter/blob/main/spring-boot/README.md#using-camunda-multi-tenancy).
 
 ### Run blueprint using tenants
 
@@ -45,17 +48,19 @@ Read more on tenants and multi-tenancy in the [Camunda docs](https://docs.camund
 4. Login:
    - **Username:** `demo`
    - **Password:** `demo`
-5. Create a new tenant:
-   - Go to **Tenants** → **Create Tenant**
-   - Set the Tenants **Name** and **ID** as `standalone` (Name of the Spring-boot application).
-6. Assign user to tenant:
-   - Go to **Assigned users** → **Assign users** → type/select the demo user
-7. Assign applications to tenant:
-   - Go to the **Assigned applications** tab
-   - Click **Assign application** and add:
-     - `identity`
-     - `operate`
-     - `zeebe`
+5. Create a new application for the demo:
+   - Go to **Applications** → **Create Application**
+   - Set the tenants **Name** to "loan-approval" (Name of the Spring-boot application)
+   - Set the **Type** to `M2M`
+   - Copy Client ID and Client secret into the [application-camunda8.yaml](https://github.com/vanillabp/blueprint-workflowmodule-springboot-standalone/blob/main/src/main/resources/application-camunda8.yaml#L9)
+6. Set Access to APIs:
+   - Go to **Access to APIs** → **Assign permissions** → Choose "Orchestration API" for read and write
+7. Open Orchestration Identity: [http://localhost:8088/identity](http://localhost:8088/identity)
+8. Create a new tenant for the demo:
+   - Go to **Tenants** → **Create tenant**
+   - Set the tenants ID and its name
+   - In the newly created tenant assign the user "demo"
+   - Also add the client "loan-approval" to the tenant 
 
 ## Noteworthy & Contributors
 

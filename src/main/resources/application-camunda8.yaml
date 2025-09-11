@@ -3,24 +3,14 @@ logging:
     io.camunda.zeebe.client.impl.ZeebeCallCredentials: ERROR
 camunda:
   client:
-    mode: selfmanaged
+    enabled: true
+    rest-address: http://localhost:8088
+    grpc-address: http://localhost:26500
+    mode: self-managed
     auth:
-      issuer: http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token
-      client-id: zeebe
-      client-secret: zecret
-    zeebe:
-      enabled: true
-      defaults:
-        enabled: false
-      grpc-address: http://localhost:26500
-    operate:
-      enabled: false
-    tasklist:
-      enabled: false
-    optimize:
-      enabled: false
-    identity:
-      enabled: false
+      token-url: http://localhost:18080/auth/realms/camunda-platform/protocol/openid-connect/token
+      client-id: orchestration
+      client-secret: secret
 vanillabp:
   workflow-modules:
     loan-approval:
@@ -28,3 +18,5 @@ vanillabp:
         camunda8:
           resources-location: classpath*:/processes/camunda8
           use-tenants: false
+          stream-enabled: true
+          stream-timeout: PT5M
