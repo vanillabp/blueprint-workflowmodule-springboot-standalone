@@ -5,14 +5,14 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.2</version>
-    <relativePath></relativePath>
+    <version>4.1.0</version>
+    <relativePath/>
     <!-- lookup parent from repository -->
   </parent>
 
   <groupId>io.vanillabp.blueprint</groupId>
   <artifactId>workflowmodule-springboot-standalone</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
 
   <packaging>jar</packaging>
   <name>Blueprint standalone workflow module</name>
@@ -43,8 +43,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>17</java.version>
-    <lombok.version>1.18.34</lombok.version>
+    <java.version>21</java.version>
   </properties>
 
   <dependencies>
@@ -56,7 +55,7 @@
     <dependency>
       <groupId>io.vanillabp</groupId>
       <artifactId>spi-for-java</artifactId>
-      <version>1.1.0</version>
+      <version>1.1.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -64,8 +63,8 @@
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
+      <!-- version comes from the Spring Boot BOM -->
       <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -97,6 +96,14 @@
       <id>camunda-community-hub-vanillabp-camunda8-adapter</id>
       <url>https://maven.pkg.github.com/camunda-community-hub/vanillabp-camunda8-adapter</url>
     </repository>
+    <repository>
+      <!--
+        Camunda 7 enterprise artifacts, needed by the camunda7 profile since adapter 1.6.0.
+        Credentials come from settings.xml, never from here.
+      -->
+      <id>camunda-enterprise</id>
+      <url>https://nexus.el.wdw-elab.de/repository/camunda-repository/</url>
+    </repository>
   </repositories>
   <build>
     <finalName>loan-approval</finalName>
@@ -111,6 +118,7 @@
               <groupId>org.projectlombok</groupId>
               <artifactId>lombok</artifactId>
               <version>${lombok.version}</version>
+              <!-- set by the Spring Boot parent -->
             </path>
           </annotationProcessorPaths>
         </configuration>
@@ -130,13 +138,13 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <version>2.44.0</version>
+        <version>3.9.0</version>
         <configuration>
           <pom>
             <includes>
               <include>**/pom.xml</include>
             </includes>
-            <sortPom></sortPom>
+            <sortPom/>
           </pom>
           <markdown>
             <includes>
@@ -146,7 +154,7 @@
               <exclude>target/**/</exclude>
               <exclude>src/main/webapp/node_modules/**/</exclude>
             </excludes>
-            <flexmark></flexmark>
+            <flexmark/>
           </markdown>
           <yaml>
             <includes>
@@ -162,7 +170,7 @@
                 <WRITE_DOC_START_MARKER>false</WRITE_DOC_START_MARKER>
               </yamlFeatures>
             </jackson>
-            <prettier></prettier>
+            <prettier/>
           </yaml>
           <typescript>
             <includes>
@@ -173,14 +181,14 @@
               <exclude>target/**/</exclude>
               <exclude>src/main/webapp/node_modules/**/</exclude>
             </excludes>
-            <prettier></prettier>
+            <prettier/>
           </typescript>
           <java>
             <eclipse>
               <file>${maven.multiModuleProjectDirectory}/formatting_conventions.xml</file>
               <version>4.26</version>
             </eclipse>
-            <removeUnusedImports></removeUnusedImports>
+            <removeUnusedImports/>
             <importOrder>
               <order>java,javax,org,com,at.phactum</order>
             </importOrder>
@@ -210,7 +218,13 @@
         <dependency>
           <groupId>org.camunda.community.vanillabp</groupId>
           <artifactId>camunda7-spring-boot-adapter</artifactId>
-          <version>1.5.0</version>
+          <!--
+            1.6.0 is the first Spring Boot 4 release of the adapter and it pulls in Camunda 7
+            *Enterprise* artifacts: the community edition ends at 7.24.0 and never got Boot 4 support.
+            Building this profile therefore needs access to the Camunda enterprise repository declared
+            below, with credentials in settings.xml. The Boot 3.5 line stays on adapter 1.5.x.
+          -->
+          <version>1.6.0-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>
@@ -220,7 +234,7 @@
         <dependency>
           <groupId>org.camunda.community.vanillabp</groupId>
           <artifactId>camunda8-spring-boot-adapter</artifactId>
-          <version>1.9.1</version>
+          <version>1.10.0-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>
