@@ -1,11 +1,16 @@
 package blueprint.workflowmodule.standalone.loanapproval;
 
+import java.io.InputStream;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import blueprint.workflowmodule.standalone.loanapproval.model.Aggregate;
 import blueprint.workflowmodule.standalone.loanapproval.model.AggregateRepository;
+import io.vanillabp.spi.process.ProcessDefinition;
 import io.vanillabp.spi.process.ProcessService;
+import io.vanillabp.spi.process.WorkflowHistory;
 import io.vanillabp.spi.service.BpmnProcess;
 import io.vanillabp.spi.service.TaskEvent;
 import io.vanillabp.spi.service.TaskId;
@@ -174,6 +179,37 @@ public class Service {
         }
 
         return true;
+
+    }
+
+    public List<ProcessDefinition> getProcessDefinition(
+            final String loanRequestId) {
+
+        final var loanApproval = loanApprovals
+                .findById(loanRequestId)
+                .get();
+
+        return service
+                .getProcessDefinitions(loanApproval, null);
+
+    }
+
+    public InputStream getProcessDiagram(
+            final String processDefinitionId) {
+
+        return service.getBpmnXml(processDefinitionId);
+
+    }
+
+    public WorkflowHistory getWorkflowHistory(
+            final String loanRequestId,
+            final String historyContext) {
+
+        final var loanApproval = loanApprovals
+                .findById(loanRequestId)
+                .get();
+
+        return service.getWorkflowHistory(loanApproval, historyContext);
 
     }
 

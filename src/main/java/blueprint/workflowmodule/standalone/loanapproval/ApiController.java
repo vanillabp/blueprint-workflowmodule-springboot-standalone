@@ -1,8 +1,10 @@
 package blueprint.workflowmodule.standalone.loanapproval;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import blueprint.workflowmodule.standalone.loanapproval.config.LoanApprovalProperties;
+import io.vanillabp.spi.process.ProcessDefinition;
+import io.vanillabp.spi.process.WorkflowHistory;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -97,6 +101,32 @@ public class ApiController {
         log.info("Risk assessment completed");
 
         return ResponseEntity.ok().build();
+
+    }
+
+    @GetMapping("/{loanRequestId}/process-definition")
+    public ResponseEntity<List<ProcessDefinition>> getProcessDefinitions(
+            @PathVariable final String loanRequestId) {
+
+        return ResponseEntity.ok(service.getProcessDefinition(loanRequestId));
+
+    }
+
+    @GetMapping("/bpmn/{processDefinitionId}")
+    public ResponseEntity<InputStreamResource> getBpmnXml(
+            @PathVariable final String processDefinitionId) {
+
+        final var xml = service.getProcessDiagram(processDefinitionId);
+        return ResponseEntity.ok(new InputStreamResource(xml));
+
+    }
+
+    @GetMapping("/{loanRequestId}/workflow-history")
+    public ResponseEntity<WorkflowHistory> getWorkflowHistory(
+            @PathVariable final String loanRequestId,
+            @RequestParam(required = false) final String historyContext) {
+
+        return ResponseEntity.ok(service.getWorkflowHistory(loanRequestId, historyContext));
 
     }
 
